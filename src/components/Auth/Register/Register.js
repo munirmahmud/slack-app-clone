@@ -88,7 +88,7 @@ const Register = () => {
             displayName: createdNewUser.user.displayName,
             photoURL: createdNewUser.user.photoURL
         }).then(() => {
-            console.log('Saved in db');
+
         }).catch(serverError => {
             setErrors(error => error.concat({message: serverError.message}));
         });

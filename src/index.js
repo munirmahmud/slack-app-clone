@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Register from "./components/Auth/Register/Register";
+import Login from "./components/Auth/Login/Login";
 
 
 ReactDOM.render(
@@ -12,6 +13,7 @@ ReactDOM.render(
       <Router>
           <Switch>
               <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
               <Route path="/" component={App} />
           </Switch>
       </Router>
