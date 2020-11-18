@@ -3,7 +3,6 @@ import './Header.styles.css';
 import { FiHelpCircle } from "react-icons/fi";
 import { BiTime } from "react-icons/bi";
 
-
 const Header = () => {
     return (
         <header className="header">
