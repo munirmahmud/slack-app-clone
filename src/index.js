@@ -7,19 +7,22 @@ import { BrowserRouter as Router, Switch, Route, withRouter} from "react-router-
 import Register from "./components/Auth/Register/Register";
 import Login from "./components/Auth/Login/Login";
 import firebase from "./server/firebase";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
+import { setUser } from "./store/actions/actionCreator";
 import store  from "./store";
 
 const Index = (props) => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
+                props.setUser(user);
                 props.history.push('/');
             } else {
+                props.setUser(null);
                 props.history.push('/login');
             }
         });
-    }, [props.history]);
+    }, []);
 
     return (
         <Switch>
@@ -30,7 +33,19 @@ const Index = (props) => {
     );
 };
 
-const IndexWithRouter = withRouter(Index);
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.user.currentUser
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser: (user) => { dispatch(setUser(user))}
+    }
+};
+
+const IndexWithRouter = withRouter(connect(mapStateToProps, mapDispatchToProps) (Index));
 
 ReactDOM.render(
   <React.StrictMode>
