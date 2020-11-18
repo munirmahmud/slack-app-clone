@@ -41,7 +41,6 @@ const Login = () => {
             firebase.auth().signInWithEmailAndPassword(userState.email, userState.password)
                 .then(user => {
                     setUserState({email: '', password: ''});
-                    console.log(user);
                 }).catch(serverError => {
                 setErrors(error => error.concat({message: serverError.message}));
             });
