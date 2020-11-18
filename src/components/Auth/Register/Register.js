@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { formatErrors } from "../authHelpers";
+
 
 import '../Auth.css';
 
@@ -9,8 +11,9 @@ const Register = () => {
         email: '',
         password: '',
         confirmPassword: ''
-    }
+    };
     const [userState, setUserState] = useState(user);
+    const [errors, setErrors] = useState([]);
 
     const handleInput = (e) => {
         const target = e.target;
@@ -21,10 +24,41 @@ const Register = () => {
         });
     };
 
+    const formValidation = () => {
+        if (isFormEmpty()) {
+            setErrors(error => error.concat({message: "Please fill in all fields."}));
+            return false;
+        } else if(!checkPassword()) {
+            return false;
+        }
+        return true;
+    };
+
+    const isFormEmpty = () => {
+        return !userState.username.length || !userState.email.length || !userState.password.length || !userState.confirmPassword.length;
+    };
+
+    const checkPassword = () => {
+        if(userState.password.length < 6) {
+            setErrors(error => error.concat({message: "Password should be at least 6 or more characters."}));
+            return false;
+        } else if (userState.password !== userState.confirmPassword) {
+            setErrors(error => error.concat({message: "Password do not match."}));
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        setErrors(() => []);
+
+        if (formValidation()) {
+
+        }
     };
+
+
 
     return (
         <div className="form-wrapper">
@@ -32,6 +66,9 @@ const Register = () => {
                 <div className="form-header">
                     <h2>Register</h2>
                 </div>
+
+                {formatErrors(errors)}
+
                 <form onSubmit={handleSubmit}>
                     <div className="field-group">
                         <label className="sr-only" htmlFor="username">User Name</label>
@@ -51,6 +88,7 @@ const Register = () => {
                             type="email"
                             className="field-control"
                             id="email"
+                            name="email"
                             placeholder="Enter email"
                             value={userState.email}
                             onChange={handleInput}
@@ -62,6 +100,7 @@ const Register = () => {
                             type="password"
                             className="field-control"
                             id="password"
+                            name="password"
                             placeholder="Enter Password"
                             value={userState.password}
                             onChange={handleInput}
@@ -73,6 +112,7 @@ const Register = () => {
                             type="password"
                             className="field-control"
                             id="confirmPassword"
+                            name="confirmPassword"
                             placeholder="Confirm Password"
                             value={userState.confirmPassword}
                             onChange={handleInput}
