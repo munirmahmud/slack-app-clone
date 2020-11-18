@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { formatErrors } from "../authHelpers";
-
-
+import firebase from "../../../server/firebase";
 import '../Auth.css';
 
 const Register = () => {
@@ -14,6 +13,9 @@ const Register = () => {
     };
     const [userState, setUserState] = useState(user);
     const [errors, setErrors] = useState([]);
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    const userCollectionRef = firebase.database().ref('users');
 
     const handleInput = (e) => {
         const target = e.target;
@@ -54,11 +56,43 @@ const Register = () => {
         setErrors(() => []);
 
         if (formValidation()) {
-
+            firebase.auth().createUserWithEmailAndPassword(userState.email, userState.password)
+                .then(createdNewUser => {
+                    updateUserInfo(createdNewUser);
+                    setIsSuccess(true);
+                    setUserState({username: '', email: '', password: '', confirmPassword: ''});
+                    setTimeout(() => {
+                        setIsSuccess(false);
+                    }, 3000);
+                }).catch(serverError => {
+                setErrors(error => error.concat({message: serverError.message}));
+            });
         }
     };
 
+    const updateUserInfo = (createdNewUser) => {
+        if (createdNewUser) {
+            createdNewUser.user.updateProfile({
+                displayName: userState.username,
+                photoURL: `http://gravatar.com/avatar/${createdNewUser.user.uid}?d=identicon`
+            }).then(() => {
+                saveUserInfoIntoDB(createdNewUser)
+            }).catch(serverError => {
+                setErrors(error => error.concat({message: serverError.message}));
+            })
+        }
+    };
 
+    const saveUserInfoIntoDB = (createdNewUser) => {
+        userCollectionRef.child(createdNewUser.user.uid).set({
+            displayName: createdNewUser.user.displayName,
+            photoURL: createdNewUser.user.photoURL
+        }).then(() => {
+            console.log('Saved in db');
+        }).catch(serverError => {
+            setErrors(error => error.concat({message: serverError.message}));
+        });
+    };
 
     return (
         <div className="form-wrapper">
@@ -68,6 +102,8 @@ const Register = () => {
                 </div>
 
                 {formatErrors(errors)}
+
+                {isSuccess && <div className="alert success">Successfully Registered</div>}
 
                 <form onSubmit={handleSubmit}>
                     <div className="field-group">
