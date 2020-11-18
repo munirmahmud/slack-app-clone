@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import './Modal.styles.css';
+import firebase from "../../server/firebase";
+import { connect } from "react-redux";
 
-const Modal = ({showModal, closeModal}) => {
+
+const Modal = ({showModal, closeModal, user}) => {
     const [channelState, setChannelState] = useState({name: '', description: ''});
+
+    const channelRef = firebase.database().ref('channels');
 
     const handleInput = (e) => {
         const target = e.target;
@@ -17,8 +22,29 @@ const Modal = ({showModal, closeModal}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        return (channelState.name === '');
+        if (channelState.name === '') {
+            return;
+        }
 
+        const key = channelRef.push().key;
+        const channel = {
+            id: key,
+            channelName: channelState.name,
+            description: channelState.description,
+            createdBy: {
+                name: user.displayName,
+                avatar: user.photoURL
+            }
+        };
+
+        channelRef.child(key).update(channel).then(() => {
+            setTimeout(() => {
+                setChannelState({name: '', description: ''});
+                closeModal();
+            }, 800);
+        }).catch(error => {
+            console.log(error);
+        });
     };
 
     return (
@@ -56,12 +82,12 @@ const Modal = ({showModal, closeModal}) => {
                                         onChange={handleInput}
                                     />
                                 </div>
-                            </form>
-                        </div>
 
-                        <div className="modal__actions">
-                            <button type="button" className="btn btn-primary">Save</button>
-                            <button onClick={closeModal} type="button" className="btn btn-light">Cancel</button>
+                                <div className="modal__actions">
+                                    <button onSubmit={handleSubmit} type="submit" className="btn btn-primary">Save</button>
+                                    <button onClick={closeModal} type="button" className="btn btn-light">Cancel</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -70,4 +96,10 @@ const Modal = ({showModal, closeModal}) => {
     );
 };
 
-export default Modal;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.currentUser
+    }
+};
+
+export default connect(mapStateToProps) (Modal);

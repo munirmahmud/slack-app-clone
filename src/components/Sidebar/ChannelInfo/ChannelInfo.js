@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ChannelInfo.styles.css';
 import { connect } from "react-redux";
 import Modal from "../../Modal/Modal";
+import { HiPlus } from "react-icons/hi";
 
 
 const ChannelInfo = () => {
@@ -30,7 +31,7 @@ const ChannelInfo = () => {
                 </div>
 
                 <div className="channel__header">
-                    <span onClick={openModal} className="item">Add new Channel</span>
+                    <span onClick={openModal} className="item"><HiPlus />Add new Channel</span>
                 </div>
             </div>
 
