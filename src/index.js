@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Switch, Route, withRouter} from "react-router-
 import Register from "./components/Auth/Register/Register";
 import Login from "./components/Auth/Login/Login";
 import firebase from "./server/firebase";
+import { Provider } from "react-redux";
+import store  from "./store";
 
 const Index = (props) => {
     useEffect(() => {
@@ -33,7 +35,9 @@ const IndexWithRouter = withRouter(Index);
 ReactDOM.render(
   <React.StrictMode>
       <Router>
-          <IndexWithRouter />
+          <Provider store={store}>
+            <IndexWithRouter />
+          </Provider>
       </Router>
   </React.StrictMode>,
   document.getElementById('root')
