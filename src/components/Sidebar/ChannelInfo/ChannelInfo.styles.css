@@ -1,0 +1,37 @@
+.channel__area {
+    color: #fff;
+    padding-top: 1.4rem;
+}
+
+.channel__header {
+    margin-bottom: 1rem;
+    display: block;
+    font-weight: 400;
+}
+.channel__header .item {
+    display: block;
+}
+
+.all__channels {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    transition: background-color 0.4s;
+    margin-bottom: .4rem;
+}
+.all__channels .item {
+    text-transform: lowercase;
+}
+.channel__area .item {
+    padding: 8px 15px;
+    transition: background-color 0.4s;
+    cursor: pointer;
+
+}
+.all__channels .item.active,
+.channel__area .item:hover {
+    background-color: #350D36;
+}
+.channel__header .channel__header-text:hover {
+    background-color: transparent;
+}

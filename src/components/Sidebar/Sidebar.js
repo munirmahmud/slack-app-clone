@@ -1,6 +1,7 @@
 import React from 'react';
 import './Sidebar.styles.css';
 import { FiEdit } from "react-icons/fi";
+import ChannelInfo from "./ChannelInfo/ChannelInfo";
 
 
 const Sidebar = (props) => {
@@ -15,7 +16,7 @@ const Sidebar = (props) => {
             </div>
 
             <div className="sidebar__bottom">
-                
+                <ChannelInfo />
             </div>
         </aside>
     );
