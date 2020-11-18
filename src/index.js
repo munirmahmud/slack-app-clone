@@ -19,7 +19,7 @@ const Index = (props) => {
                 props.history.push('/login');
             }
         });
-    }, []);
+    }, [props.history]);
 
     return (
         <Switch>
