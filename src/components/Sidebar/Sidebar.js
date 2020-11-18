@@ -3,8 +3,7 @@ import './Sidebar.styles.css';
 import { FiEdit } from "react-icons/fi";
 import ChannelInfo from "./ChannelInfo/ChannelInfo";
 
-
-const Sidebar = (props) => {
+const Sidebar = () => {
     return (
         <aside className="sidebar">
             <div className="sidebar__top">

@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ChannelInfo.styles.css';
 import { connect } from "react-redux";
+import Modal from "../../Modal/Modal";
 
 
 const ChannelInfo = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <>
             <div className="channel__area">
@@ -19,10 +30,11 @@ const ChannelInfo = () => {
                 </div>
 
                 <div className="channel__header">
-                    <span className="item">Add new Channel</span>
+                    <span onClick={openModal} className="item">Add new Channel</span>
                 </div>
-
             </div>
+
+            <Modal showModal={showModal} closeModal={closeModal} />
         </>
     );
 };
