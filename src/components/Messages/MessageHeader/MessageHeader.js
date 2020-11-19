@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MessageHeader.styles.css';
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import {connect} from "react-redux";
 
+const MessageHeader = (props) => {
+    const [channelStar, setChannelStar] = useState(false);
 
-const MessageHeader = () => {
+    const givenStar = () => {
+        setChannelStar(prev => !prev);
+    };
+
     return (
         <div className="message__header">
             <div className="row">
                 <div className="col-6">
                     <div className="message__header-left">
-                        #channel
-                        <span className="icon">
-                            <AiOutlineStar />
+                        #{props.channel.channelName}
+                        <span onClick={givenStar} className="icon">
+                            {channelStar ? <AiFillStar /> : <AiOutlineStar />}
                         </span>
                     </div>
                 </div>
@@ -26,4 +32,10 @@ const MessageHeader = () => {
     );
 };
 
-export default MessageHeader;
+const mapStateToProps = (state) => {
+    return {
+        channel: state.channel.currentChannel
+    }
+};
+
+export default connect(mapStateToProps) (MessageHeader);

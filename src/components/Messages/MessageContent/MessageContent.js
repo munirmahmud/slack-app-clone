@@ -13,6 +13,8 @@ const MessageContent = (props) => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
+        setMessages([]);
+
         if (props.channel) {
             messagesRef.child(props.channel.id).on('child_added', snap => {
                 setMessages(currentState => {
@@ -25,7 +27,7 @@ const MessageContent = (props) => {
             return () => messagesRef.off();
         }
     }, [props.channel]);
-    
+
     return (
         <div className="message__content">
             {messages.length > 0 && messages.map(message => (
