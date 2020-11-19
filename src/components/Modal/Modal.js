@@ -29,7 +29,7 @@ const Modal = ({showModal, closeModal, user}) => {
         const key = channelRef.push().key;
         const channel = {
             id: key,
-            channelName: channelState.name,
+            channelName: channelState.name.toLowerCase().replace(" ", ""),
             description: channelState.description,
             createdBy: {
                 name: user.displayName,
