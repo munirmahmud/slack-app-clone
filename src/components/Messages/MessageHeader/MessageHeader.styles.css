@@ -1,0 +1,31 @@
+.message__header {
+    height: 66px;
+    border-bottom: 1px solid #ece8e8;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    font-weight: 400;
+}
+.message__header > .row {
+    width: 100%;
+}
+
+.message__header-left {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.message__header-left .icon {
+    color: #444;
+    display: flex;
+    align-items: center;
+    margin-left: .5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.message__header-right {
+    display: flex;
+    justify-content: flex-end;
+}
