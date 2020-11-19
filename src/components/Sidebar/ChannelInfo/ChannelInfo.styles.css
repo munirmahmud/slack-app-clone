@@ -29,10 +29,15 @@
     display: flex;
     align-items: center;
 }
-.all__channels .item.active,
+
 .channel__area .item:hover {
     background-color: #350D36;
 }
+
+.all__channels .item.active {
+    background-color: #1164A3;
+}
+
 .channel__header .channel__header-text:hover {
     background-color: transparent;
 }

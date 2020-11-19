@@ -1,9 +1,10 @@
 import { combineReducers, createStore } from "redux";
-import { userReducer } from "./reducers/userReducer";
+import { userReducer, channelReducer } from "./reducers/reducers";
 
 
 const rootReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    channel: channelReducer
 });
 
 const store = createStore(rootReducer);
