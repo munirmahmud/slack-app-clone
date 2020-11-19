@@ -1,3 +1,15 @@
+.message__content {
+    padding-top: .8rem;
+}
+.message__content > .row {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    transition: background 0.3s linear;
+}
+.message__content > .row:hover {
+    background-color: #F8F8F8;
+}
+
 .message__content-wrapper {
     display: flex;
 }
