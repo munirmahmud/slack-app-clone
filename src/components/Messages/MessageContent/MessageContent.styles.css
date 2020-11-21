@@ -1,0 +1,40 @@
+.message__content {
+    padding-top: .8rem;
+}
+.message__content > .row {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    transition: background 0.3s linear;
+}
+.message__content > .row:hover {
+    background-color: #F8F8F8;
+}
+
+.message__content-wrapper {
+    display: flex;
+}
+
+.message__content-wrapper img {
+    margin-right: .6rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message__info strong {
+    font-size: .8rem;
+    margin-bottom: .6rem;
+    display: block;
+}
+.message__info span {
+    font-size: .8rem;
+    font-weight: 400;
+    margin-left: .6rem;
+    color: #666666;
+}
+.message__info p {
+    font-size: .9rem;
+    font-weight: 400;
+    color: #222;
+}

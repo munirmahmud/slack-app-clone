@@ -8,6 +8,14 @@ body {
   font-size: 1rem;
   font-weight: 300;
 }
+.main-content {
+  display: flex;
+}
+.message__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -15,7 +23,7 @@ body {
   flex-wrap: wrap;
   padding: 0 20px;
 }
-.col-3, .col-4 {
+.col-3, .col-4, .col-6 {
   position: relative;
   width: 100%;
 }
@@ -28,4 +36,9 @@ body {
   -ms-flex: 0 0 33.333333%;
   flex: 0 0 33.333333%;
   max-width: 33.333333%;
+}
+.col-6 {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
 }
